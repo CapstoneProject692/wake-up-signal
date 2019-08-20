@@ -101,63 +101,40 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @objc func hanldeSignUp() {
         print(123)
         
-        guard let email = emailTextField.text, !email.isEmpty else { return }
-        guard let username = nameTextField.text, !username.isEmpty else { return }
-        guard let password = passwordTextField.text, !password.isEmpty else { return }
+        guard let email = emailTextField.text, email.count > 0  else { return }
+        guard let username = nameTextField.text, username.count > 0 else { return }
+        guard let password = passwordTextField.text, password.count > 6 else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error: Error?) in
-            
+        Firebase.Auth.auth().createUser(withEmail: email, password: password) { (user: User?, error: Error?) in
             if let err = error {
-                print("Failed to create user:", err)
+                print("Failed to create user: ", err)
                 return
             }
+            print("Successfully created user: ", user?.uid ?? "")
+            //save user data to firebase database.
+            //unwrap user uid
             
-            print("Successfully created user:", user?.uid ?? "")
+            guard let image = self.photoButton.imageView?.image else { return}
+            guard let uploaddata =  UIImage.jpegData(compressionQuality: image,0.3) else {return}
+            //crate universale filename
+            filename = NSUIID().u
             
-            guard let image = self.photoButton.imageView?.image else { return }
             
-            guard let uploadData = image.jpegData(compressionQuality: 0.3) else { return }
             
-            let filename = NSUUID().uuidString
+            guard let uid = user?.uid else { return }
+            let usernameValues = ["username": username]
             
-            let storageRef = Storage.storage().reference().child("profile_images").child(filename)
-            storageRef.putData(uploadData, metadata: nil, completion: { (metadata, err) in
-                
+            let values = [uid:usernameValues]
+            
+            Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (err,ref)  in
                 if let err = err {
-                    print("Failed to upload profile image:", err)
+                    print("Failed to save user info into DB:", err)
                     return
                 }
-                
-                // Firebase 5 Update: Must now retrieve downloadURL
-                storageRef.downloadURL(completion: { (downloadURL, err) in
-                    if let err = err {
-                        print("Failed to fetch downloadURL:", err)
-                        return
-                    }
-                    
-                    guard let profileImageUrl = downloadURL?.absoluteString else { return }
-                    
-                    print("Successfully uploaded profile image:", profileImageUrl)
-                    
-                    guard let uid = user?.uid else { return }
-                    
-                    let dictionaryValues = ["username": username, "profileImageUrl": profileImageUrl]
-                    let values = [uid: dictionaryValues]
-                    
-                    Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (err, ref) in
-                        
-                        if let err = err {
-                            print("Failed to save user info into db:", err)
-                            return
-                        }
-                        
-                        print("Successfully saved user info to db")
-                        
-                    })
-                })
+                print("Successfully saved user info do DB.")
             })
-            
-        })
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -197,7 +174,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 }
 // ? - mean optional parameter
 extension UIView {
-    func anchor(top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
+    @objcfunc anchor(top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
         if let top = top {
             self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
             //same as "top!" for unwrapped, however in this case the if is exception protection.
