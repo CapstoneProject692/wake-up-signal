@@ -12,6 +12,7 @@ import Firebase
 
 class MainTabBarController: UITabBarController {
     
+    let driver = Driver()
   
     override func viewDidLoad() {
         super.viewDidLoad()

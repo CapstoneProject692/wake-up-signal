@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,7 @@
 		4953B6EE2308F9FF008FA30B /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4953B6ED2308F9FF008FA30B /* HealthManager.swift */; };
 		4953B6F023090E98008FA30B /* HealthHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4953B6EF23090E98008FA30B /* HealthHeader.swift */; };
 		4953B6F32309761D008FA30B /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4953B6F22309761D008FA30B /* MapController.swift */; };
+		4953B6F52312053A008FA30B /* DriverClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4953B6F42312053A008FA30B /* DriverClass.swift */; };
 		AD101DBFC85568D2399C479E /* Pods_Wake_Up_Signals.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C3CC4170C3AC819DFA8498 /* Pods_Wake_Up_Signals.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		4953B6ED2308F9FF008FA30B /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
 		4953B6EF23090E98008FA30B /* HealthHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthHeader.swift; sourceTree = "<group>"; };
 		4953B6F22309761D008FA30B /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		4953B6F42312053A008FA30B /* DriverClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverClass.swift; sourceTree = "<group>"; };
 		58E565CCE425405D4A7E9D20 /* Pods-Wake-Up Signals.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wake-Up Signals.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals.release.xcconfig"; sourceTree = "<group>"; };
 		7EEF77ABBC424A81EF5A2BD6 /* Pods-Wake-Up Signals.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wake-Up Signals.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals.debug.xcconfig"; sourceTree = "<group>"; };
 		A9C3CC4170C3AC819DFA8498 /* Pods_Wake_Up_Signals.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wake_Up_Signals.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +111,7 @@
 				4953B6C722FD57E3008FA30B /* LaunchScreen.storyboard */,
 				4953B6CA22FD57E3008FA30B /* Info.plist */,
 				4953B6D522FE62B3008FA30B /* GoogleService-Info.plist */,
+				4953B6F42312053A008FA30B /* DriverClass.swift */,
 			);
 			path = "Wake-Up Signals";
 			sourceTree = "<group>";
@@ -248,14 +251,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4AEF88942065C6755281CCEA /* [CP] Check Pods Manifest.lock */ = {
@@ -281,23 +286,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Wake-Up Signals/Pods-Wake-Up Signals-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -312,6 +310,7 @@
 				4953B6E223000B08008FA30B /* SignUpController.swift in Sources */,
 				4953B6DA22FFE447008FA30B /* UserProfileController.swift in Sources */,
 				4953B6F32309761D008FA30B /* MapController.swift in Sources */,
+				4953B6F52312053A008FA30B /* DriverClass.swift in Sources */,
 				4953B6F023090E98008FA30B /* HealthHeader.swift in Sources */,
 				4953B6BF22FD57E1008FA30B /* AppDelegate.swift in Sources */,
 				4953B6DD22FFF1E8008FA30B /* UserProfileHeader.swift in Sources */,
