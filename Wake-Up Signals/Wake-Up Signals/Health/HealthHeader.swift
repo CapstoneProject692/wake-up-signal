@@ -57,8 +57,19 @@ class HealthHeader: UICollectionViewCell {
     @objc func authHkit() {
     print("AuthHK pressed")
     
-        Hkit.authorizeHealthKit()
-        
+        Hkit.authorizeHealthKit { (authorize, error) in
+            guard authorize else {
+                let message = "HealthKit Authorization failed"
+                if let error = error {
+                    print("\(message). Error:  \(error.localizedDescription)")
+                } else {
+                    print(message)
+                }
+                return
+            }
+            print("HealthKit Authorisation Successfull!")
+        }
+       //if auhtorize data allowed = Dismis authorize button!
 }
 
 }

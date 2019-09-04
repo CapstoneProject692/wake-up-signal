@@ -10,9 +10,23 @@ import UIKit
 import GoogleMaps
 import Alamofire
 
+struct SnappedPoints: Decodable {
+    let snappedPoints: [String: [Point]]
+}
+
+struct Point: Decodable {
+    let location: Location
+    let originalIndex: Int
+    let placeID:String
+}
+struct Location: Decodable {
+    let latitude: Double?
+    let longitude: Double?
+}
+
 class MapController: UIViewController, CLLocationManagerDelegate {
     
-    let api_Key = "AIzaSyBOeGYL-Lo-yp1ekar69l1TMGGUQH9TuIs"
+    let api_Key = "AIzaSyC95R7uJKmOBYLfplh1wxqudUuf6SXikmY"
     //location
     var driverlocation = CLLocationManager()
     //Driver
@@ -44,21 +58,39 @@ class MapController: UIViewController, CLLocationManagerDelegate {
         marker.snippet = "your speed"
         marker.map = mapView
         //get Name from API Place ID
-        let str = createUrlRequestStringNearestRoads(lat: locValue.latitude, long: locValue.longitude, api_Key: api_Key)
-        print(str)
+        let str = createUrlRequestStringNearestRoads(lat: driver.latitude, long: driver.longitude, api_Key: api_Key)
+        //Alamofire.request(str).responseJSON { (response) in
+        guard let jsonUrl = URL(string: str) else { return }
+        URLSession.shared.dataTask(with: jsonUrl) { (data, response, err) in
+            
+            guard let data = data else { return}
+            do {
+                let snappedPoints =  try
+                   // JSONDecoder().decode(SnappedPoints.self, from: data)
+                    print(response)
+            } catch let jsonErr {
+                print("Error JSON parsing:", jsonErr)
+            }
+         
+        }.resume()
+        
+        
         
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+       
         guard let location = driverlocation.location?.coordinate else { return }
+        
         let locValue:CLLocationCoordinate2D = location
+        
         driver.updateLocation(lat: locValue.latitude, long:  locValue.longitude)
+        
         print("location = \(locValue.latitude) \(locValue.longitude)")
        // let str = "https://roads.googleapis.com/v1/speedLimits?path=-33.86350 151.07760&key="+api_Key
       
         let str = createUrlRequestStringNearestRoads(lat: locValue.latitude, long: locValue.longitude, api_Key: api_Key)
         print(str)
-        
         
         
     }

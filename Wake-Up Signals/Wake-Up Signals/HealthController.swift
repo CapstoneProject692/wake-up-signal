@@ -13,7 +13,7 @@ class HealthController: UICollectionViewController, UICollectionViewDelegateFlow
   
     
     let Hkit = HealtKitManager()
-    
+    let driverHealthProfile = DriverHealthProfile()
     
     
     let TitleTextField: UITextField = {
@@ -79,6 +79,20 @@ class HealthController: UICollectionViewController, UICollectionViewDelegateFlow
     }
     
 
+}
+
+//Query Body Characteristics
+func loadAgeSexAndBloodType(){
+    do {
+        let userAgeSexAndBloodType = try .getAgeSexAndBloodType()
+        userHealthProfile.age = userAgeSexAndBloodType.age
+        userHealthProfile.biologicalSex = userAgeSexAndBloodType.biologicalSex
+        userHealthProfile.bloodType = userAgeSexAndBloodType.bloodType
+        updateLabels()
+    } catch let error {
+        self.displayAlert(for: error)
+    }
+    
 }
 
 
